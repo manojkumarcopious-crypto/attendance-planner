@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Attendance Planner</h1>
+
+    <h2>Attendance Calculator</h2>
+
+    <label>Current Attendance %</label>
+    <input type="number" id="current">
+
+    <label>Target Attendance %</label>
+    <input type="number" id="target" value="75">
+
+    <label>Day Order (1-6)</label>
+    <input type="number" id="dayOrder" min="1" max="6">
+
+    <button onclick="calculateAttendance()">
+        Calculate
+    </button>
+
+    <button onclick="resetTimetable()">
+        Reset Timetable
+    </button>
+
+    <div id="result"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
