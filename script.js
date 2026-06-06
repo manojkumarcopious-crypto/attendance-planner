@@ -1,95 +1,141 @@
+window.onload = function(){
+
+```
+let saved = JSON.parse(
+    localStorage.getItem("timetable")
+);
+
+if(saved){
+
+    for(let i=1;i<=6;i++){
+
+        document.getElementById(
+            "day"+i
+        ).value = saved[i-1].join(" ");
+
+    }
+}
+```
+
+};
+
+function saveTimetable(){
+
+```
+let timetable = [];
+
+for(let i=1;i<=6;i++){
+
+    let value = document
+        .getElementById("day"+i)
+        .value
+        .toUpperCase()
+        .trim();
+
+    timetable.push(
+        value.split(" ")
+    );
+}
+
+localStorage.setItem(
+    "timetable",
+    JSON.stringify(timetable)
+);
+
+alert("Timetable Saved Successfully!");
+```
+
+}
+
+function calculateAttendance(){
+
+```
 let timetable = JSON.parse(
     localStorage.getItem("timetable")
 );
 
 if(!timetable){
 
-    timetable = [];
-
-    for(let day=1; day<=6; day++){
-
-        let input = prompt(
-            `Enter Day ${day} periods\nExample:\nT T T L L`
-        );
-
-        timetable.push(
-            input.toUpperCase().split(" ")
-        );
-    }
-
-    localStorage.setItem(
-        "timetable",
-        JSON.stringify(timetable)
-    );
+    alert("Please save timetable first.");
+    return;
 }
 
-function calculateAttendance(){
+let current =
+    parseFloat(
+        document.getElementById("current").value
+    );
 
-    let current =
-        parseFloat(
-            document.getElementById("current").value
-        );
+let target =
+    parseFloat(
+        document.getElementById("target").value
+    );
 
-    let target =
-        parseFloat(
-            document.getElementById("target").value
-        );
+let dayOrder =
+    parseInt(
+        document.getElementById("dayOrder").value
+    );
 
-    let dayOrder =
-        parseInt(
-            document.getElementById("dayOrder").value
-        );
+let periods = [];
 
-    let theory = 0;
-    let lab = 0;
-    let percent = current;
+for(let i=dayOrder-1;i<6;i++){
+    periods.push(...timetable[i]);
+}
 
-    let periods = [];
+for(let i=0;i<dayOrder-1;i++){
+    periods.push(...timetable[i]);
+}
 
-    for(let i=dayOrder-1;i<6;i++){
-        periods.push(...timetable[i]);
+let theory = 0;
+let lab = 0;
+let percent = current;
+let index = 0;
+
+while(percent < target){
+
+    let p = periods[index];
+
+    if(p === "L"){
+        percent += 0.29;
+        lab++;
+    }else{
+        percent += 0.12;
+        theory++;
     }
 
-    for(let i=0;i<dayOrder-1;i++){
-        periods.push(...timetable[i]);
+    index++;
+
+    if(index >= periods.length){
+        index = 0;
     }
+}
 
-    let index = 0;
+document.getElementById(
+    "result"
+).innerHTML = `
 
-    while(percent < target){
+<h2>✅ Attendance Prediction</h2>
 
-        let p = periods[index];
+<p><strong>Theory Classes:</strong> ${theory}</p>
 
-        if(p === "L"){
-            percent += 0.29;
-            lab++;
-        }
-        else{
-            percent += 0.12;
-            theory++;
-        }
+<p><strong>Lab Classes:</strong> ${lab}</p>
 
-        index++;
+<p><strong>Total Classes:</strong> ${theory + lab}</p>
 
-        if(index >= periods.length){
-            index = 0;
-        }
-    }
+<p><strong>Expected Attendance:</strong> ${percent.toFixed(2)}%</p>
 
-    document.getElementById("result").innerHTML = `
-        <h3>Result</h3>
-        Theory Classes: ${theory}<br>
-        Lab Classes: ${lab}<br>
-        Total Classes: ${theory + lab}<br>
-        Expected Attendance: ${percent.toFixed(2)}%
-    `;
+`;
+```
+
 }
 
 function resetTimetable(){
 
-    localStorage.removeItem(
-        "timetable"
-    );
+```
+localStorage.removeItem(
+    "timetable"
+);
 
-    location.reload();
+location.reload();
+```
+
 }
