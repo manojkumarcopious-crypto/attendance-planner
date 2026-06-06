@@ -1,16 +1,38 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-    <title>Attendance Planner</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance Planner</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
 
-    <h1>Attendance Planner</h1>
+```
+<h1>🎓 Attendance Planner</h1>
 
-    <h2>Attendance Calculator</h2>
+<div class="card">
+
+    <h2>📅 Timetable Setup</h2>
+
+    <input id="day1" placeholder="Day 1 (Example: T T T T T)">
+    <input id="day2" placeholder="Day 2 (Example: T L L T T)">
+    <input id="day3" placeholder="Day 3 (Example: T T T L L)">
+    <input id="day4" placeholder="Day 4 (Example: L L L T T)">
+    <input id="day5" placeholder="Day 5 (Example: T T T L L)">
+    <input id="day6" placeholder="Day 6 (Example: L L L T T)">
+
+    <button onclick="saveTimetable()">💾 Save Timetable</button>
+    <button onclick="resetTimetable()">🗑 Reset Timetable</button>
+
+</div>
+
+<div class="card">
+
+    <h2>📊 Attendance Calculator</h2>
 
     <label>Current Attendance %</label>
     <input type="number" id="current">
@@ -21,15 +43,12 @@
     <label>Day Order (1-6)</label>
     <input type="number" id="dayOrder" min="1" max="6">
 
-    <button onclick="calculateAttendance()">
-        Calculate
-    </button>
+    <button onclick="calculateAttendance()">🚀 Calculate</button>
 
-    <button onclick="resetTimetable()">
-        Reset Timetable
-    </button>
+</div>
 
-    <div id="result"></div>
+<div id="result"></div>
+```
 
 </div>
 
