@@ -5,28 +5,28 @@ let saved = JSON.parse(
     localStorage.getItem("timetable")
 );
 
-if (saved) {
+if(saved){
 
-    for (let i = 1; i <= 6; i++) {
+    for(let i=1;i<=6;i++){
 
         document.getElementById(
-            "day" + i
-        ).value = saved[i - 1].join(" ");
+            "day"+i
+        ).value = saved[i-1].join(" ");
     }
 }
 ```
 
 };
 
-function saveTimetable() {
+function saveTimetable(){
 
 ```
 let timetable = [];
 
-for (let i = 1; i <= 6; i++) {
+for(let i=1;i<=6;i++){
 
     let value = document
-        .getElementById("day" + i)
+        .getElementById("day"+i)
         .value
         .toUpperCase()
         .trim();
@@ -46,14 +46,14 @@ alert("Timetable Saved Successfully!");
 
 }
 
-function calculateAttendance() {
+function calculateAttendance(){
 
 ```
 let timetable = JSON.parse(
     localStorage.getItem("timetable")
 );
 
-if (!timetable) {
+if(!timetable){
     alert("Please save timetable first.");
     return;
 }
@@ -70,27 +70,22 @@ let dayOrder = parseInt(
     document.getElementById("dayOrder").value
 );
 
-if (
+if(
     isNaN(current) ||
     isNaN(target) ||
     isNaN(dayOrder)
-) {
+){
     alert("Please fill all fields.");
-    return;
-}
-
-if (dayOrder < 1 || dayOrder > 6) {
-    alert("Day Order must be between 1 and 6.");
     return;
 }
 
 let periods = [];
 
-for (let i = dayOrder - 1; i < 6; i++) {
+for(let i=dayOrder-1;i<6;i++){
     periods.push(...timetable[i]);
 }
 
-for (let i = 0; i < dayOrder - 1; i++) {
+for(let i=0;i<dayOrder-1;i++){
     periods.push(...timetable[i]);
 }
 
@@ -99,36 +94,36 @@ let lab = 0;
 let percent = current;
 let index = 0;
 
-while (percent < target) {
+while(percent < target){
 
     let p = periods[index];
 
-    if (p === "L") {
+    if(p === "L"){
         percent += 0.29;
         lab++;
-    } else {
+    }else{
         percent += 0.12;
         theory++;
     }
 
     index++;
 
-    if (index >= periods.length) {
+    if(index >= periods.length){
         index = 0;
     }
 }
 
 document.getElementById("result").innerHTML =
     "<h2>Attendance Prediction</h2>" +
-    "<p><strong>Theory Classes:</strong> " + theory + "</p>" +
-    "<p><strong>Lab Classes:</strong> " + lab + "</p>" +
-    "<p><strong>Total Classes:</strong> " + (theory + lab) + "</p>" +
-    "<p><strong>Expected Attendance:</strong> " + percent.toFixed(2) + "%</p>";
+    "<p><b>Theory Classes:</b> " + theory + "</p>" +
+    "<p><b>Lab Classes:</b> " + lab + "</p>" +
+    "<p><b>Total Classes:</b> " + (theory + lab) + "</p>" +
+    "<p><b>Expected Attendance:</b> " + percent.toFixed(2) + "%</p>";
 ```
 
 }
 
-function resetTimetable() {
+function resetTimetable(){
 
 ```
 localStorage.removeItem("timetable");
