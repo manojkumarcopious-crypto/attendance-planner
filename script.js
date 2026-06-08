@@ -70,8 +70,17 @@ let dayOrder = parseInt(
     document.getElementById("dayOrder").value
 );
 
-if (isNaN(current) || isNaN(target) || isNaN(dayOrder)) {
+if (
+    isNaN(current) ||
+    isNaN(target) ||
+    isNaN(dayOrder)
+) {
     alert("Please fill all fields.");
+    return;
+}
+
+if (dayOrder < 1 || dayOrder > 6) {
+    alert("Day Order must be between 1 and 6.");
     return;
 }
 
