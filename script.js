@@ -1,33 +1,32 @@
-window.onload = function(){
+window.onload = function () {
 
 ```
 let saved = JSON.parse(
     localStorage.getItem("timetable")
 );
 
-if(saved){
+if (saved) {
 
-    for(let i=1;i<=6;i++){
+    for (let i = 1; i <= 6; i++) {
 
         document.getElementById(
-            "day"+i
-        ).value = saved[i-1].join(" ");
-
+            "day" + i
+        ).value = saved[i - 1].join(" ");
     }
 }
 ```
 
 };
 
-function saveTimetable(){
+function saveTimetable() {
 
 ```
 let timetable = [];
 
-for(let i=1;i<=6;i++){
+for (let i = 1; i <= 6; i++) {
 
     let value = document
-        .getElementById("day"+i)
+        .getElementById("day" + i)
         .value
         .toUpperCase()
         .trim();
@@ -47,41 +46,42 @@ alert("Timetable Saved Successfully!");
 
 }
 
-function calculateAttendance(){
+function calculateAttendance() {
 
 ```
 let timetable = JSON.parse(
     localStorage.getItem("timetable")
 );
 
-if(!timetable){
-
+if (!timetable) {
     alert("Please save timetable first.");
     return;
 }
 
-let current =
-    parseFloat(
-        document.getElementById("current").value
-    );
+let current = parseFloat(
+    document.getElementById("current").value
+);
 
-let target =
-    parseFloat(
-        document.getElementById("target").value
-    );
+let target = parseFloat(
+    document.getElementById("target").value
+);
 
-let dayOrder =
-    parseInt(
-        document.getElementById("dayOrder").value
-    );
+let dayOrder = parseInt(
+    document.getElementById("dayOrder").value
+);
+
+if (isNaN(current) || isNaN(target) || isNaN(dayOrder)) {
+    alert("Please fill all fields.");
+    return;
+}
 
 let periods = [];
 
-for(let i=dayOrder-1;i<6;i++){
+for (let i = dayOrder - 1; i < 6; i++) {
     periods.push(...timetable[i]);
 }
 
-for(let i=0;i<dayOrder-1;i++){
+for (let i = 0; i < dayOrder - 1; i++) {
     periods.push(...timetable[i]);
 }
 
@@ -90,50 +90,41 @@ let lab = 0;
 let percent = current;
 let index = 0;
 
-while(percent < target){
+while (percent < target) {
 
     let p = periods[index];
 
-    if(p === "L"){
+    if (p === "L") {
         percent += 0.29;
         lab++;
-    }else{
+    } else {
         percent += 0.12;
         theory++;
     }
 
     index++;
 
-    if(index >= periods.length){
+    if (index >= periods.length) {
         index = 0;
     }
 }
 
-document.getElementById(
-    "result"
-).innerHTML = `
-
-<h2>✅ Attendance Prediction</h2>
-
-<p><strong>Theory Classes:</strong> ${theory}</p>
-
-<p><strong>Lab Classes:</strong> ${lab}</p>
-
-<p><strong>Total Classes:</strong> ${theory + lab}</p>
-
-<p><strong>Expected Attendance:</strong> ${percent.toFixed(2)}%</p>
-
-`;
+document.getElementById("result").innerHTML =
+    "<h2>Attendance Prediction</h2>" +
+    "<p><strong>Theory Classes:</strong> " + theory + "</p>" +
+    "<p><strong>Lab Classes:</strong> " + lab + "</p>" +
+    "<p><strong>Total Classes:</strong> " + (theory + lab) + "</p>" +
+    "<p><strong>Expected Attendance:</strong> " + percent.toFixed(2) + "%</p>";
 ```
 
 }
 
-function resetTimetable(){
+function resetTimetable() {
 
 ```
-localStorage.removeItem(
-    "timetable"
-);
+localStorage.removeItem("timetable");
+
+alert("Timetable Reset Successfully!");
 
 location.reload();
 ```
